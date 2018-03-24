@@ -1,6 +1,56 @@
-#include "GL\glut.h"
+/*
+* triangle.c -- A simple example of OpenGL and GLUT.
+*/
 
-int main()
+#include <GL/glut.h>
+
+void drawTrangle(int x1, int y1, int x2, int y2, int x3, int y3)
 {
+	glBegin(GL_POLYGON);			/* draw filled triangle */
+	glVertex2i(x1, y1);			/* specify each vertex of triangle */
+	glVertex2i(x2, y2);
+	glVertex2i(x3, y3);
+	glEnd();				/* OpenGL draws the filled triangle */
+}
+void displayCB(void)		/* function called whenever redisplay needed */
+{
+	glClear(GL_COLOR_BUFFER_BIT);		/* clear the display */
+	glColor3f(1.0, 1.0, 1.0);		/* set current color to white */
+	drawTrangle(0,0,0,200,100,100);
+	glFlush();				/* Complete any pending operations */
+}
 
+void keyCB(unsigned char key, int x, int y)	/* called on key press */
+{
+	if (key == 'q') exit(0);
+	if (key == 'q') exit(0);
+
+}
+
+
+int main(int argc, char *argv[])
+{
+	int win;
+	int x=0, y=0;
+	glutInit(&argc, argv);		/* initialize GLUT system */
+
+	glutInitDisplayMode(GLUT_RGB);
+	glutInitWindowSize(400, 500);		/* width=400pixels height=500pixels */
+	win = glutCreateWindow("Triangle");	/* create window */
+
+										/* from this point on the current window is win */
+
+	glClearColor(0.0, 0.0, 0.0, 0.0);	/* set background to black */
+	gluOrtho2D(0, 400, 0, 500);		/* how object is mapped to window */
+	glClear(GL_COLOR_BUFFER_BIT);		/* clear the display */
+	glColor3f(1.0, 1.0, 1.0);		/* set current color to white */
+	drawTrangle(x, y, x+100, y, x+50, y+100);
+	glFlush();
+	glutKeyboardFunc(keyCB);		/* set window's key callback */
+
+	glutMainLoop();			/* start processing events... */
+
+							/* execution never reaches this point */
+
+	return 0;
 }
